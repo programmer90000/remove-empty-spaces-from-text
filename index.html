@@ -32,18 +32,29 @@
   <h1>Text Formatter</h1>
   <p>Enter your text below and click the button to format it.</p>
   <textarea id="input" rows="10" cols="50"></textarea>
+
+  <input type="checkbox" id="remove" name="remove" value="remove">
+  <label for="remove-checkbox">Remove comments</label>
+
   <button onclick="formatText()">Format</button>
   <p>The formatted text will appear below.</p>
   <textarea id="output" rows="10" cols="50" readonly></textarea>
   <button onclick="copyText()">Copy</button>
   <div id="message">Text copied to clipboard!</div>
 
-
   <script>
 // Define a function to format the text and display the output
 function formatText() {
-  // Get the text input from a textarea element with id="input"
-  var input = document.getElementById("input").value;
+    // Get the text input from a textarea element with id="input"
+    var input = document.getElementById("input").value;
+
+    // Check if the checkbox with the id remove is checked or not
+    var checkbox = document.getElementById('remove');
+    if (checkbox.checked) {
+      // Remove both HTML and JavaScript comments
+      input = input.replace(/(<!--[\S\s]*?-->)|(\/\*[\S\s]*?\*\/)|(\/\/.*$)/gm, '');
+
+    }
 
   // Split the input by line breaks
   var lines = input.split("\n");
